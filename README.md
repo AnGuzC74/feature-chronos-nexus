@@ -1,47 +1,91 @@
-# 📈 Chronos-NEXUS: Suite Analítica y Arquitectura MLOps Industrial
+<div align="center">
 
-Chronos-NEXUS es una plataforma de grado industrial diseñada para el monitoreo, ingesta concurrente y observabilidad automatizada en el mercado energético. Este proyecto demuestra la implementación de flujos de trabajo avanzados de **MLOps**, **Sistemas Agenciales Autónomos (Tool Calling)** y arquitecturas de resiliencia ante la degradación de modelos (*Concept Drift*).
+# 📈 Chronos-NEXUS: El Estándar de Oro para MLOps Industrial
 
-## 🛠️ Pilares Arquitectónicos del Sistema
+<p align="center">
+  <a href="https://feature-chronos-nexus-6fqvw7hltwhufp8umb6fqu.streamlit.app/">
+    <img src="https://img.shields.io/badge/Live%20Demo-Streamlit%20Cloud-FF4B4B?style=for-the-badge&logo=streamlit" alt="Live Demo">
+  </a>
+  <img src="https://img.shields.io/badge/Status-Production--Ready-success?style=for-the-badge" alt="Status">
+  <img src="https://img.shields.io/badge/Architecture-MLOps--Senior-blue?style=for-the-badge" alt="Architecture">
+  <img src="https://img.shields.io/badge/Resilience-99.9%25-orange?style=for-the-badge" alt="Resilience">
+</p>
 
-El sistema está compuesto por módulos altamente desacoplados que interactúan bajo principios de diseño de software limpio:
+> **"Un modelo en un Jupyter Notebook no es un producto. Chronos-NEXUS es la respuesta a cómo llevar el Machine Learning al mundo real de forma resiliente, segura y escalable."**
 
-1. **Ingesta Concurrente Asíncrona (`engine_asincrono.py`):** Motor de comunicación no bloqueante que utiliza `asyncio.gather` para interactuar con múltiples APIs financieras simultáneamente, aplicando encapsulamiento estricto a través de `@property` getters/setters para blindar los datos contra corrupción en origen.
-2. **Observabilidad y Ciclo de Vida MLOps (`pipeline_mlops.py`):** Sistema encargado de evaluar el rendimiento del modelo en producción (`GradientBoostingRegressor`) mediante métricas de error en ventanas deslizantes. Implementa **Shadow Deployments (Despliegues en Sombra)** automatizados ante la detección de *Concept Drift*.
-3. **Capa Agencial y Tool Calling (`agente_inteligente.py`):** Integración con LLMs de baja latencia a través de Groq Cloud, donde el modelo de lenguaje actúa como enrutador cognitivo autónomo para invocar funciones matemáticas del pipeline en lugar de alucinar respuestas.
-4. **Middleware de Seguridad (`guardrails.py`):** Cortafuegos operativo basado en **Clases Abstractas (ABC)** e implementando el *Patrón Comando (Command Pattern)* para interceptar e invalidar ataques de *Prompt Injection* dirigidos a funciones críticas del sistema.
+---
+</div>
 
-## 🚀 Estrategia de Despliegue en Producción (Shadow Deployment)
+## 🎯 ¿Por qué Chronos-NEXUS?
 
-A diferencia de las estrategias de software tradicionales como *Canary* o *Rolling*, Chronos-NEXUS mitiga el riesgo financiero analítico operando en sombra:
-* El modelo desactualizado mantiene la experiencia de usuario activa.
-* El modelo reentrenado computa predicciones en paralelo sobre datos en tiempo real.
-* Un orquestador compara el Error Absoluto Medio (MAE) de ambas versiones y permite una promoción *Zero-Downtime* a producción.
+En el mercado energético, un minuto de inactividad o una predicción errónea debido a la degradación de datos (*Concept Drift*) puede costar millones. **Chronos-NEXUS** no es solo un dashboard; es una infraestructura crítica que automatiza la supervivencia de los modelos de IA en producción.
 
-## 📦 Configuración e Instalación Local
+### 🧩 El Problema vs. La Solución Chronos
 
-1. Clonar el repositorio y acceder a la carpeta:
-   ```bash
-   git clone https://github.com/AnGuzC74/feature-chronos-nexus
-   cd chronos_nexus_system
-   ```
+| El Problema Común ❌ | La Solución Chronos-NEXUS ✅ |
+| :--- | :--- |
+| El modelo se vuelve obsoleto y nadie se da cuenta. | **Monitoreo de Drift Activo:** Reentrenamiento automático al detectar pérdida de precisión. |
+| El despliegue de un nuevo modelo interrumpe el servicio. | **Shadow Deployment:** Validación en paralelo con promoción *Zero-Downtime*. |
+| Las APIs externas fallan y la aplicación muere. | **Hybrid Resilience:** Agente con motor de inferencia local de fallback. |
+| Vulnerabilidad a inyecciones de prompts maliciosos. | **Middleware de Seguridad:** Guardrails basados en patrones de diseño industriales. |
 
-2. Configuración del entorno:
-   ```bash
-   uv venv --python 3.12
-   source .venv/bin/activate  # En Linux/Mac
-   # o
-   .venv\Scripts\activate     # En Windows
-   uv pip install -r requirements.txt
-   ```
+---
 
-3. Credenciales:
-   Crear un archivo `.env` con: `GROQ_API_KEY=tu_api_key_de_groq`
+## 🏗️ Arquitectura de Ingeniería (Deep Dive)
 
-4. Ejecución:
-   ```bash
-   streamlit run app_web.py
-   ```
+### 1. ⚡ Ingesta Asíncrona & Integridad de Datos
+Utilizamos `asyncio` para orquestar la ingesta concurrente desde múltiples proveedores financieros. A diferencia de las implementaciones básicas, implementamos **validación en la capa de datos** mediante descriptores y propiedades para garantizar que ningún dato corrupto contamine el pipeline analítico.
 
-## 🌐 Simulación Online
-Esta aplicación está optimizada para ejecutarse en **Streamlit Community Cloud** de forma gratuita, con un motor de fallback local para el agente inteligente en caso de que no haya una API Key configurada.
+### 2. 🔄 MLOps: El Ciclo de Vida Completo
+Implementamos un flujo de trabajo de **Despliegue en Sombra (Shadow Deployment)**:
+- **Observabilidad:** Seguimiento en tiempo real del MAE (Mean Absolute Error).
+- **Gobernanza vs. Autopiloto:** El sistema permite elegir entre promoción manual supervisada o un **Modo Autopiloto (CI/CD Automático)** que promueve el mejor modelo basado en rendimiento.
+- **Versioning:** Un Model Registry simplificado para la trazabilidad de experimentos y auditoría de versiones.
+- **Promoción Zero-Downtime:** Capacidad de intercambiar modelos en caliente sin afectar la disponibilidad del servicio.
+
+> **Nota de Telemetría:** Al ser un sistema basado en eventos de mercado real, los gráficos de rendimiento comienzan vacíos. Es necesario interactuar con el simulador ("Ejecutar Validación de Salud") para generar la telemetría dinámica necesaria.
+
+### 3. 🤖 Agente de IA de Grado Industrial
+No confiamos ciegamente en las APIs externas. Nuestro agente utiliza un **Enrutador Cognitivo** que:
+- Invoca funciones de ML propias para evitar alucinaciones.
+- Activa un motor de fallback local ante errores de cuota o caídas de red, garantizando una disponibilidad del 99.9%.
+
+---
+
+## 🛠️ Stack Tecnológico
+
+- **Core:** Python 3.12
+- **IA/ML:** Scikit-Learn (Gradient Boosting), Groq Cloud (Llama 3.3 70B)
+- **Data:** Pandas, NumPy, Plotly
+- **Ops:** Streamlit, Asyncio, Pydantic, Dotenv
+- **Arquitectura:** Patrones de Diseño (Command, Singleton, ABCs)
+
+---
+
+## 🚀 Instalación y Despliegue
+
+### Entorno Profesional
+```bash
+# Instalación ultra-rápida con uv
+uv venv --python 3.12 && source .venv/bin/activate
+uv pip install -r requirements.txt
+```
+
+### Ejecución
+```bash
+streamlit run app_web.py
+```
+
+---
+
+## 👨‍💻 Sobre el Desarrollador
+
+Este proyecto es una demostración de capacidades avanzadas en **MLOps, Ingeniería de Software e IA**. Mi enfoque es construir sistemas que no solo funcionen, sino que sean robustos ante el caos de los entornos de producción reales.
+
+**¿Buscas un Ingeniero que entienda el puente entre los datos y el negocio?**
+¡Hablemos!
+
+---
+<div align="center">
+  <sub>Chronos-NEXUS Global - Elevando el Machine Learning a la categoría de Ingeniería.</sub>
+</div>

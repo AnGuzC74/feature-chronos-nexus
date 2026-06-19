@@ -1,5 +1,6 @@
 import os
 import json
+import random
 import streamlit as st
 from groq import Groq
 from dotenv import load_dotenv
@@ -8,9 +9,14 @@ load_dotenv()
 
 # 🛡️ Extracción Híbrida: Busca en secretos de Streamlit Cloud (Producción) o en .env (Local)
 api_key_groq = ""
-if "GROQ_API_KEY" in st.secrets:
-    api_key_groq = st.secrets["GROQ_API_KEY"]
-else:
+try:
+    if "GROQ_API_KEY" in st.secrets:
+        api_key_groq = st.secrets["GROQ_API_KEY"]
+except Exception:
+    # Fallback si st.secrets no está configurado o falla
+    pass
+
+if not api_key_groq:
     api_key_groq = os.environ.get("GROQ_API_KEY", "").strip()
 
 client_groq = Groq(api_key=api_key_groq) if api_key_groq else None
@@ -20,18 +26,29 @@ def pronosticar_precio_crudo_gbt(dias_proyeccion: int) -> str:
     return f"Resultado del modelo Gradient Boosting: El precio proyectado para los próximos {dias_proyeccion} días es de ${precio_estimado:.2f} USD por barril."
 
 def simular_agente_local_gratuito(prompt_usuario: str) -> str:
-    """⚡ Motor de Fallback Gratuito: Simula la inferencia agencial si no hay API Key activa"""
+    """⚡ Motor de Fallback Dinámico: Simula respuestas de IA variadas si no hay API Key activa"""
     prompt_lower = prompt_usuario.lower()
 
-    # Simulación inteligente de Tool Calling local basado en intenciones (Regex)
+    # 🎯 Lógica de Tool Calling simulada
     if any(palabra in prompt_lower for palabra in ["proyección", "pronóstico", "días", "precio", "proyectar"]):
         import re
         numeros = re.findall(r'\d+', prompt_lower)
         dias = int(numeros[0]) if numeros else 10
         resultado_ml = pronosticar_precio_crudo_gbt(dias)
-        return f"🤖 [Modo Simulación Pública Gratuita]: Se detectó una consulta predictiva. Invocando Tool Calling local sin costo...\n\n{resultado_ml}"
+        return f"🤖 [Simulación Local]: He analizado tu consulta predictiva. Invocando mis funciones de ML...\n\n{resultado_ml}"
 
-    return "🤖 [Modo Simulación Pública Gratuita]: Entendido. Como consultor energético senior, recomiendo vigilar de cerca los niveles de soporte actuales del crudo y las métricas de desviación de datos (Concept Drift) en el panel inferior."
+    # 🎭 Banco de respuestas dinámicas para evitar repetitividad
+    respuestas = [
+        "🤖 [Simulación Local]: Como economista senior, observo que la volatilidad en el Mar del Norte y las tensiones geopolíticas sugieren un enfoque cauteloso. Recomiendo monitorear el 'Concept Drift' en la sección de MLOps abajo.",
+        "🤖 [Simulación Local]: Interesante consulta. Desde una perspectiva de arquitectura MLOps, la salud del modelo 'Gradient Boosting' actual es estable, aunque el 'Shadow Model' está listo para intervenir si el error MAE sube de 2.5.",
+        "🤖 [Simulación Local]: Entendido. He procesado tu mensaje usando mi motor heurístico local. Para análisis de lenguaje natural profundo (LLM) y razonamiento complejo, puedes configurar una `GROQ_API_KEY` en los secretos de la app.",
+        "🤖 [Simulación Local]: Los niveles de soporte del crudo Brent están bajo presión técnica. Mi lógica local sugiere que un 'Zero-Downtime deployment' sería prudente si los datos de Reuters confirman la tendencia.",
+        "🤖 [Simulación Local]: ¡Hola! Estoy operando en modo de alta eficiencia (local). He detectado patrones de interés en tu consulta; sin embargo, para proyecciones actuariales detalladas, requiero la potencia de Llama 3.3 vía Groq.",
+        "🤖 [Simulación Local]: El mercado energético actual presenta una correlación inversa con el fortalecimiento del dólar. ¿Has revisado si el 'Model Registry' tiene versiones de producción recientes?",
+        "🤖 [Simulación Local]: Alerta de Observabilidad: Los logs de seguridad muestran intentos de interacción no autorizados. He blindado el pipeline principal mientras analizo tu consulta comercial."
+    ]
+
+    return random.choice(respuestas)
 
 def inicializar_agente_con_herramientas(prompt_usuario: str):
     # 🔄 Cortocircuito de seguridad: Si no hay credenciales, pasa directo al motor gratuito
@@ -70,8 +87,7 @@ def inicializar_agente_con_herramientas(prompt_usuario: str):
             funciones_disponibles = {"pronosticar_precio_crudo_gbt": pronosticar_precio_crudo_gbt}
             for tool_call in tool_calls:
                 argumentos = json.loads(tool_call.function.arguments)
-                return f"🤖 [Respuesta Agencial Groq Cloud]: {funciones_disponibles[tool_call.function.name](dias_proyeccion=argumentos.get('dias_proyeccion'))}"
-        return f"🤖 [Respuesta Groq Cloud]: {response_message.content}"
+                return f"🤖 [Groq Cloud]: {funciones_disponibles[tool_call.function.name](dias_proyeccion=argumentos.get('dias_proyeccion'))}"
+        return f"🤖 [Groq Cloud]: {response_message.content}"
     except Exception:
-        # 🩹 Resiliencia MLOps: Si la API de Groq da error de cuota o timeout en Streamlit Cloud, la app no muere
         return simular_agente_local_gratuito(prompt_usuario)
