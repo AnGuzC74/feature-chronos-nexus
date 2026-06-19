@@ -36,8 +36,11 @@ Utilizamos `asyncio` para orquestar la ingesta concurrente desde múltiples prov
 ### 2. 🔄 MLOps: El Ciclo de Vida Completo
 Implementamos un flujo de trabajo de **Despliegue en Sombra (Shadow Deployment)**:
 - **Observabilidad:** Seguimiento en tiempo real del MAE (Mean Absolute Error).
-- **Versioning:** Un Model Registry simplificado para la trazabilidad de experimentos.
-- **Promoción:** Capacidad de intercambiar modelos en caliente sin afectar la disponibilidad.
+- **Gobernanza vs. Autopiloto:** El sistema permite elegir entre promoción manual supervisada o un **Modo Autopiloto (CI/CD Automático)** que promueve el mejor modelo basado en rendimiento.
+- **Versioning:** Un Model Registry simplificado para la trazabilidad de experimentos y auditoría de versiones.
+- **Promoción Zero-Downtime:** Capacidad de intercambiar modelos en caliente sin afectar la disponibilidad del servicio.
+
+> **Nota de Telemetría:** Al ser un sistema basado en eventos de mercado real, los gráficos de rendimiento comienzan vacíos. Es necesario interactuar con el simulador ("Ejecutar Validación de Salud") para generar la telemetría dinámica necesaria.
 
 ### 3. 🤖 Agente de IA de Grado Industrial
 No confiamos ciegamente en las APIs externas. Nuestro agente utiliza un **Enrutador Cognitivo** que:

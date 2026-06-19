@@ -9,9 +9,14 @@ load_dotenv()
 
 # 🛡️ Extracción Híbrida: Busca en secretos de Streamlit Cloud (Producción) o en .env (Local)
 api_key_groq = ""
-if "GROQ_API_KEY" in st.secrets:
-    api_key_groq = st.secrets["GROQ_API_KEY"]
-else:
+try:
+    if "GROQ_API_KEY" in st.secrets:
+        api_key_groq = st.secrets["GROQ_API_KEY"]
+except Exception:
+    # Fallback si st.secrets no está configurado o falla
+    pass
+
+if not api_key_groq:
     api_key_groq = os.environ.get("GROQ_API_KEY", "").strip()
 
 client_groq = Groq(api_key=api_key_groq) if api_key_groq else None
@@ -34,11 +39,13 @@ def simular_agente_local_gratuito(prompt_usuario: str) -> str:
 
     # 🎭 Banco de respuestas dinámicas para evitar repetitividad
     respuestas = [
-        "🤖 [Simulación Local]: Como analista senior, observo que la volatilidad actual sugiere un enfoque cauteloso. Recomiendo revisar el gráfico de Concept Drift abajo.",
-        "🤖 [Simulación Local]: Interesante consulta. Desde una perspectiva MLOps, la salud del modelo es óptima, aunque los datos externos muestran señales mixtas.",
-        "🤖 [Simulación Local]: Entendido. He procesado tu mensaje. En este modo demo, mi capacidad de razonamiento está limitada a heurísticas locales. Configura una GROQ_API_KEY para desbloquear mi cerebro completo.",
-        "🤖 [Simulación Local]: Los niveles de soporte del crudo están bajo presión. Mi lógica local sugiere monitorear el Shadow Model para detectar anomalías tempranas.",
-        "🤖 [Simulación Local]: ¡Hola! Estoy operando en modo de bajo consumo. Para análisis de lenguaje natural profundo, requiero conexión con Groq Cloud."
+        "🤖 [Simulación Local]: Como economista senior, observo que la volatilidad en el Mar del Norte y las tensiones geopolíticas sugieren un enfoque cauteloso. Recomiendo monitorear el 'Concept Drift' en la sección de MLOps abajo.",
+        "🤖 [Simulación Local]: Interesante consulta. Desde una perspectiva de arquitectura MLOps, la salud del modelo 'Gradient Boosting' actual es estable, aunque el 'Shadow Model' está listo para intervenir si el error MAE sube de 2.5.",
+        "🤖 [Simulación Local]: Entendido. He procesado tu mensaje usando mi motor heurístico local. Para análisis de lenguaje natural profundo (LLM) y razonamiento complejo, puedes configurar una `GROQ_API_KEY` en los secretos de la app.",
+        "🤖 [Simulación Local]: Los niveles de soporte del crudo Brent están bajo presión técnica. Mi lógica local sugiere que un 'Zero-Downtime deployment' sería prudente si los datos de Reuters confirman la tendencia.",
+        "🤖 [Simulación Local]: ¡Hola! Estoy operando en modo de alta eficiencia (local). He detectado patrones de interés en tu consulta; sin embargo, para proyecciones actuariales detalladas, requiero la potencia de Llama 3.3 vía Groq.",
+        "🤖 [Simulación Local]: El mercado energético actual presenta una correlación inversa con el fortalecimiento del dólar. ¿Has revisado si el 'Model Registry' tiene versiones de producción recientes?",
+        "🤖 [Simulación Local]: Alerta de Observabilidad: Los logs de seguridad muestran intentos de interacción no autorizados. He blindado el pipeline principal mientras analizo tu consulta comercial."
     ]
 
     return random.choice(respuestas)

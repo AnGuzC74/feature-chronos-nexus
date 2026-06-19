@@ -60,9 +60,13 @@ with col_der:
 st.markdown("---")
 st.header("⚙️ Observabilidad MLOps: Shadow Deployment & Model Drift")
 
+# Checkbox para modo autopiloto
+autopiloto = st.sidebar.toggle("🤖 Modo Autopiloto (Auto-Promotion)", value=False, help="Habilita la promoción automática del modelo en sombra si su rendimiento (MAE) es superior al de producción.")
+
 col_m1, col_m2 = st.columns([2, 1])
 
 with col_m1:
+    st.info("💡 **Nota de Telemetría:** Los gráficos de rendimiento se generan dinámicamente. Ejecuta la validación de salud varias veces para observar la convergencia de errores y la detección de drift.")
     precio_real_mercado = st.slider("Simular Variación del Precio Real de Mercado ($ USD):", min_value=50.0, max_value=95.0, value=78.5)
 
     if st.button("⚡ Ejecutar Validación de Salud del Modelo", use_container_width=True):
@@ -73,26 +77,36 @@ with col_m1:
             st.warning("🔄 Shadow Model Desplegado: El nuevo modelo está computando predicciones en paralelo para mitigar el riesgo.")
 
         if mlops_manager.modelo_sombra:
+            # Lógica de Autopiloto
+            error_prod = mlops_manager.historial_errores["produccion"][-1]
+            error_sombra = mlops_manager.historial_errores["sombra"][-1]
+
+            if autopiloto and error_sombra < error_prod:
+                if mlops_manager.promover_sombra_a_produccion():
+                    st.toast("🚀 Autopiloto: Modelo promovido automáticamente por mejor rendimiento.", icon="✅")
+
             df_errores = pd.DataFrame({
                 "Error Prod (MAE)": mlops_manager.historial_errores["produccion"],
                 "Error Sombra (MAE)": mlops_manager.historial_errores["sombra"]
             }).dropna()
             st.line_chart(df_errores)
 
-            if st.button("🚀 Promover Modelo en Sombra a Producción (Zero-Downtime)", use_container_width=True):
-                if mlops_manager.promover_sombra_a_produccion():
-                    st.success("🎯 ¡Modelo en Sombra promovido con éxito! Pesos actualizados en producción sin caída del servicio.")
+            if not autopiloto:
+                if st.button("🚀 Promover Modelo en Sombra a Producción (Zero-Downtime)", use_container_width=True):
+                    if mlops_manager.promover_sombra_a_produccion():
+                        st.success("🎯 ¡Modelo en Sombra promovido con éxito! Pesos actualizados en producción sin caída del servicio.")
 
 with col_m2:
     st.subheader("📁 Model Registry (Metadatos)")
     if os.path.exists("model_registry"):
-        archivos = os.listdir("model_registry")
-        for arc in archivos[-3:]:
+        archivos = sorted(os.listdir("model_registry"))
+        for arc in archivos[-5:]:
             with open(f"model_registry/{arc}", "r") as f:
                 meta = json.load(f)
-                st.caption(f"📦 Versión: {meta['version']} | {meta['tipo_despliegue']}")
+                st.caption(f"📦 v{meta['version']} | {meta['tipo_despliegue']}")
 
     if st.session_state.logs_seguridad:
-        st.subheader("🛡️ Logs del Middleware de Seguridad")
-        for log in st.session_state.logs_seguridad[-2:]:
-            st.code(log, language="text")
+        st.subheader("🛡️ Logs de Seguridad")
+        with st.container(border=True):
+            for log in reversed(st.session_state.logs_seguridad[-5:]):
+                st.caption(f"**{log}**")
