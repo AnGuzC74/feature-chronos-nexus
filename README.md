@@ -1,12 +1,17 @@
-# 📈 Chronos-NEXUS: El Estandar de Oro para MLOps Industrial
+<div align="center">
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/)
-[![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-3120/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# 📈 Chronos-NEXUS: El Estándar de Oro para MLOps Industrial
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Status-Production--Ready-success?style=for-the-badge" alt="Status">
+  <img src="https://img.shields.io/badge/Architecture-MLOps--Senior-blue?style=for-the-badge" alt="Architecture">
+  <img src="https://img.shields.io/badge/Resilience-99.9%25-orange?style=for-the-badge" alt="Resilience">
+</p>
 
 > **"Un modelo en un Jupyter Notebook no es un producto. Chronos-NEXUS es la respuesta a cómo llevar el Machine Learning al mundo real de forma resiliente, segura y escalable."**
 
 ---
+</div>
 
 ## 🎯 ¿Por qué Chronos-NEXUS?
 
@@ -25,16 +30,16 @@ En el mercado energético, un minuto de inactividad o una predicción errónea d
 
 ## 🏗️ Arquitectura de Ingeniería (Deep Dive)
 
-### 1. Ingesta Asíncrona & Integridad de Datos
+### 1. ⚡ Ingesta Asíncrona & Integridad de Datos
 Utilizamos `asyncio` para orquestar la ingesta concurrente desde múltiples proveedores financieros. A diferencia de las implementaciones básicas, implementamos **validación en la capa de datos** mediante descriptores y propiedades para garantizar que ningún dato corrupto contamine el pipeline analítico.
 
-### 2. MLOps: El Ciclo de Vida Completo
+### 2. 🔄 MLOps: El Ciclo de Vida Completo
 Implementamos un flujo de trabajo de **Despliegue en Sombra (Shadow Deployment)**:
 - **Observabilidad:** Seguimiento en tiempo real del MAE (Mean Absolute Error).
 - **Versioning:** Un Model Registry simplificado para la trazabilidad de experimentos.
 - **Promoción:** Capacidad de intercambiar modelos en caliente sin afectar la disponibilidad.
 
-### 3. Agente de IA de Grado Industrial
+### 3. 🤖 Agente de IA de Grado Industrial
 No confiamos ciegamente en las APIs externas. Nuestro agente utiliza un **Enrutador Cognitivo** que:
 - Invoca funciones de ML propias para evitar alucinaciones.
 - Activa un motor de fallback local ante errores de cuota o caídas de red, garantizando una disponibilidad del 99.9%.
@@ -75,4 +80,6 @@ Este proyecto es una demostración de capacidades avanzadas en **MLOps, Ingenier
 ¡Hablemos!
 
 ---
-*Chronos-NEXUS Global - Elevando el Machine Learning a la categoría de Ingeniería.*
+<div align="center">
+  <sub>Chronos-NEXUS Global - Elevando el Machine Learning a la categoría de Ingeniería.</sub>
+</div>
