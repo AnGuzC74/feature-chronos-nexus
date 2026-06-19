@@ -38,6 +38,14 @@ with col_izq:
 
 with col_der:
     st.header("🤖 Interfaz Cognitiva Agencial")
+
+    # Indicador de estado de conexión del agente
+    from agente_inteligente import client_groq
+    if client_groq:
+        st.success("🟢 Agente Conectado a Groq Cloud (Llama 3.3)")
+    else:
+        st.warning("🟡 Modo Demo: Motor de Inferencia Local Activo (Fallback)")
+
     pregunta = st.text_input("Hazle una consulta analítica al Agente (o intenta hackearlo pidiendo reentrenar):")
     if pregunta:
         if "reentrenar" in pregunta.lower() or "forzar" in pregunta.lower():
