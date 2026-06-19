@@ -1,6 +1,6 @@
 <div align="center">
 
-# 📈 Chronos-NEXUS: El Estándar de Oro para MLOps Industrial
+# 📈 Chronos-NEXUS: 
 
 <p align="center">
   <a href="https://feature-chronos-nexus-6fqvw7hltwhufp8umb6fqu.streamlit.app/">
@@ -11,7 +11,30 @@
   <img src="https://img.shields.io/badge/Resilience-99.9%25-orange?style=for-the-badge" alt="Resilience">
 </p>
 
-> **"Un modelo en un Jupyter Notebook no es un producto. Chronos-NEXUS es la respuesta a cómo llevar el Machine Learning al mundo real de forma resiliente, segura y escalable."**
+Chronos-NEXUS es una suite analítica de grado industrial diseñada para demostrar la convergencia entre la Ingeniería de Software de alto nivel, IA Agencial y MLOps (Operaciones de Machine Learning).
+
+Aquí tienes un resumen detallado de su propósito y funcionamiento:
+
+# # 1. ¿Qué es Chronos-NEXUS?
+Es una plataforma de observabilidad y control para el mercado energético (específicamente crudo). No es solo un panel de visualización, sino una infraestructura robusta que garantiza que los modelos de Inteligencia Artificial sigan siendo precisos y seguros incluso cuando las condiciones del mercado cambian drásticamente.
+
+# # 2. ¿Para qué sirve?
+El sistema tiene tres objetivos principales:
+
+Garantizar la Continuidad Analítica: Evita que un modelo de predicción obsoleto tome decisiones erróneas mediante la detección automática de degradación de datos (Concept Drift).
+Demostrar Resiliencia Industrial: Utiliza técnicas de programación asíncrona y motores de "fallback" para asegurar que la plataforma nunca deje de funcionar, incluso si las APIs externas o las llaves de IA fallan.
+Seguridad Operativa: Implementa capas de protección (Guardrails) para evitar que usuarios malintencionados o errores humanos disparen procesos críticos sin autorización.
+3. ¿Qué simula exactamente?
+El programa orquesta un ecosistema completo de producción de datos:
+
+Ingesta Concurrente (Engine Asíncrono): Simula la conexión simultánea a múltiples fuentes financieras (como Bloomberg o Reuters) para obtener precios de crudo en tiempo real de manera eficiente y no bloqueante.
+Ciclo de Vida MLOps (Shadow Deployment):
+Entrena un modelo (Gradient Boosting) para predecir precios.
+Monitorea el error del modelo. Si el mercado cambia y el error sube demasiado, el sistema automáticamente entrena un "Modelo en Sombra" (Shadow Model).
+Este nuevo modelo compite en silencio con el de producción. Tú puedes decidir si lo promueves manualmente o dejas que el "Modo Autopiloto" lo haga por ti si demuestra ser mejor.
+Interfaz Cognitiva (Agente IA): Simula a un Economista Senior con el que puedes hablar. El agente es inteligente: si le pides un pronóstico, no "alucina" una respuesta, sino que invoca las funciones matemáticas del sistema para darte datos reales. Si no hay conexión a internet, tiene un cerebro local de respaldo para seguir asistiendo.
+Defensa de Sistema (Guardrails): Simula un ataque de "Prompt Injection". Si intentas engañar al agente para que "fuerce un reentrenamiento" o rompa el sistema, el Middleware de Seguridad intercepta la orden y la bloquea.
+En resumen, Chronos-NEXUS simula el cerebro y el escudo de una empresa energética moderna, donde la IA y los modelos matemáticos deben trabajar de forma autónoma pero bajo una estricta supervisión de ingeniería.
 
 ---
 </div>
@@ -75,15 +98,6 @@ uv pip install -r requirements.txt
 ```bash
 streamlit run app_web.py
 ```
-
----
-
-## 👨‍💻 Sobre el Desarrollador
-
-Este proyecto es una demostración de capacidades avanzadas en **MLOps, Ingeniería de Software e IA**. Mi enfoque es construir sistemas que no solo funcionen, sino que sean robustos ante el caos de los entornos de producción reales.
-
-**¿Buscas un Ingeniero que entienda el puente entre los datos y el negocio?**
-¡Hablemos!
 
 ---
 <div align="center">
