@@ -82,9 +82,6 @@ streamlit run app_web.py
 
 Este proyecto es una demostración de capacidades avanzadas en **MLOps, Ingeniería de Software e IA**. Mi enfoque es construir sistemas que no solo funcionen, sino que sean robustos ante el caos de los entornos de producción reales.
 
-**¿Buscas un Ingeniero que entienda el puente entre los datos y el negocio?**
-¡Hablemos!
-
 ---
 <div align="center">
   <sub>Chronos-NEXUS Global - Elevando el Machine Learning a la categoría de Ingeniería.</sub>
